@@ -1,0 +1,52 @@
+name: verdict
+
+# Each service has its own Dockerfile and builds independently (the build
+# context is the repo root so workspace deps + the shared package resolve).
+# The web BFF reaches the backends over the compose network by service name
+# (e.g. http://engine:4001).
+services:
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_SITE_URL: http://localhost:8090
+      ENGINE_URL: http://engine:4001
+      SUMMARY_URL: http://summary:4002
+      LEADS_URL: http://leads:4003
+    ports:
+      - "8090:3000"
+    depends_on:
+      - engine
+      - summary
+      - leads
+
+  engine:
+    build:
+      context: .
+      dockerfile: backend/engine/Dockerfile
+    environment:
+      PORT: "4001"
+    ports:
+      - "4001:4001"
+
+  summary:
+    build:
+      context: .
+      dockerfile: backend/summary/Dockerfile
+    environment:
+      PORT: "4002"
+    ports:
+      - "4002:4002"
+
+  leads:
+    build:
+      context: .
+      dockerfile: backend/leads/Dockerfile
+    environment:
+      PORT: "4003"
+    ports:
+      - "4003:4003"
