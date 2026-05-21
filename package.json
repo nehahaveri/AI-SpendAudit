@@ -5,14 +5,15 @@
   "description": "Verdict — a free tool that audits a startup's AI-tool spend and surfaces defensible savings.",
   "workspaces": [
     "packages/*",
-    "services/*"
+    "frontend",
+    "backend/*"
   ],
   "scripts": {
     "dev": "concurrently -n web,engine,summary,leads -c blue,green,magenta,yellow \"npm:dev:web\" \"npm:dev:engine\" \"npm:dev:summary\" \"npm:dev:leads\"",
-    "dev:web": "npm run dev -w services/web",
-    "dev:engine": "npm run dev -w services/engine",
-    "dev:summary": "npm run dev -w services/summary",
-    "dev:leads": "npm run dev -w services/leads",
+    "dev:web": "npm run dev -w frontend",
+    "dev:engine": "npm run dev -w backend/engine",
+    "dev:summary": "npm run dev -w backend/summary",
+    "dev:leads": "npm run dev -w backend/leads",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
