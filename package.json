@@ -3,25 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "description": "Verdict — a free tool that audits a startup's AI-tool spend and surfaces defensible savings.",
-  "workspaces": [
-    "packages/*",
-    "frontend",
-    "backend/*"
-  ],
   "scripts": {
-    "dev": "concurrently -n web,engine,summary,leads -c blue,green,magenta,yellow \"npm:dev:web\" \"npm:dev:engine\" \"npm:dev:summary\" \"npm:dev:leads\"",
-    "dev:web": "npm run dev -w frontend",
-    "dev:engine": "npm run dev -w backend/engine",
-    "dev:summary": "npm run dev -w backend/summary",
-    "dev:leads": "npm run dev -w backend/leads",
-    "build": "npm run build --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "next": "16.2.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0",
-    "typescript": "^5.7.0"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.7",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.7"
   },
   "engines": {
     "node": ">=20"
